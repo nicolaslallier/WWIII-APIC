@@ -1,9 +1,9 @@
 """FastAPI application factory."""
-import logging
+
 import signal
 import sys
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
 
 import structlog
 from fastapi import FastAPI
@@ -92,9 +92,10 @@ def create_app() -> FastAPI:
         metrics_app = make_asgi_app()
         app.mount("/metrics", metrics_app)
 
-    # TODO: Register API routers
-    # from app.api.v1 import router as v1_router
-    # app.include_router(v1_router, prefix=settings.api_v1_prefix)
+    # Register API routers
+    from app.api.v1 import router as v1_router
+
+    app.include_router(v1_router, prefix=settings.api_v1_prefix)
 
     return app
 
@@ -123,4 +124,3 @@ if __name__ == "__main__":
         reload=settings.environment == "development",
         log_level=settings.log_level.lower(),
     )
-

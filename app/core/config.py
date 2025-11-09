@@ -1,4 +1,5 @@
 """Application configuration using Pydantic Settings."""
+
 from functools import lru_cache
 from typing import Literal
 
@@ -98,8 +99,8 @@ class Settings(BaseSettings):
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
 
-@lru_cache()
+@lru_cache
 def get_settings() -> Settings:
     """Get cached settings instance."""
-    return Settings()
-
+    return Settings()  # type: ignore[call-arg]
+    # Pydantic Settings loads required fields from environment variables

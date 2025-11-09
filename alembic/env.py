@@ -24,9 +24,10 @@ from app.core.config import get_settings
 settings = get_settings()
 config.set_main_option("sqlalchemy.url", settings.database_url.replace("+asyncpg", ""))
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-target_metadata = None  # Set to Base.metadata when models are created
+# Import your models here for autogenerate support
+from app.models import Base
+
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
