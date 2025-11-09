@@ -1,0 +1,163 @@
+{
+  "commands": {
+    "git.commit": {
+      "command": "git add -A && git commit -m \"${input:commitMessage}\"",
+      "title": "Commit Changes",
+      "description": "Stage all changes and commit with a message",
+      "inputs": [
+        {
+          "id": "commitMessage",
+          "description": "Commit message (use Conventional Commits: feat:, fix:, refactor:, test:, chore:, docs:)",
+          "default": "chore: update"
+        }
+      ]
+    },
+    "git.commit.feat": {
+      "command": "git add -A && git commit -m \"feat: ${input:message}\"",
+      "title": "Commit Feature",
+      "description": "Commit with feat: prefix",
+      "inputs": [
+        {
+          "id": "message",
+          "description": "Feature description",
+          "default": "add new feature"
+        }
+      ]
+    },
+    "git.commit.fix": {
+      "command": "git add -A && git commit -m \"fix: ${input:message}\"",
+      "title": "Commit Fix",
+      "description": "Commit with fix: prefix",
+      "inputs": [
+        {
+          "id": "message",
+          "description": "Fix description",
+          "default": "fix bug"
+        }
+      ]
+    },
+    "git.commit.refactor": {
+      "command": "git add -A && git commit -m \"refactor: ${input:message}\"",
+      "title": "Commit Refactor",
+      "description": "Commit with refactor: prefix",
+      "inputs": [
+        {
+          "id": "message",
+          "description": "Refactor description",
+          "default": "refactor code"
+        }
+      ]
+    },
+    "git.push": {
+      "command": "git push ${input:remote} ${input:branch}",
+      "title": "Push to Remote",
+      "description": "Push current branch to remote",
+      "inputs": [
+        {
+          "id": "remote",
+          "description": "Remote name",
+          "default": "origin"
+        },
+        {
+          "id": "branch",
+          "description": "Branch name (use $(git branch --show-current) for current)",
+          "default": "$(git branch --show-current)"
+        }
+      ]
+    },
+    "git.push.current": {
+      "command": "git push origin $(git branch --show-current)",
+      "title": "Push Current Branch",
+      "description": "Push current branch to origin"
+    },
+    "git.push.set-upstream": {
+      "command": "git push -u origin $(git branch --show-current)",
+      "title": "Push and Set Upstream",
+      "description": "Push current branch and set upstream tracking"
+    },
+    "git.pr.create": {
+      "command": "gh pr create --title \"${input:title}\" --body \"${input:body}\" --base ${input:base}",
+      "title": "Create Pull Request",
+      "description": "Create PR using GitHub CLI",
+      "inputs": [
+        {
+          "id": "title",
+          "description": "PR title",
+          "default": "Update"
+        },
+        {
+          "id": "body",
+          "description": "PR description",
+          "default": "## Changes\n\n- \n\n## Testing\n\n- [ ] Tests pass\n- [ ] Quality gates pass"
+        },
+        {
+          "id": "base",
+          "description": "Base branch",
+          "default": "main"
+        }
+      ]
+    },
+    "git.pr.create.auto": {
+      "command": "gh pr create --title \"$(git log -1 --pretty=%B)\" --body \"## Changes\n\n$(git log origin/main..HEAD --pretty='- %s')\n\n## Testing\n\n- [ ] Tests pass\n- [ ] Quality gates pass\" --base main",
+      "title": "Create PR from Last Commit",
+      "description": "Create PR using last commit message as title"
+    },
+    "git.commit.push": {
+      "command": "git add -A && git commit -m \"${input:commitMessage}\" && git push origin $(git branch --show-current)",
+      "title": "Commit and Push",
+      "description": "Stage, commit, and push in one command",
+      "inputs": [
+        {
+          "id": "commitMessage",
+          "description": "Commit message",
+          "default": "chore: update"
+        }
+      ]
+    },
+    "git.commit.push.pr": {
+      "command": "git add -A && git commit -m \"${input:commitMessage}\" && git push -u origin $(git branch --show-current) && gh pr create --title \"${input:prTitle}\" --body \"${input:prBody}\" --base main",
+      "title": "Commit, Push, and Create PR",
+      "description": "Complete workflow: commit, push, and create PR",
+      "inputs": [
+        {
+          "id": "commitMessage",
+          "description": "Commit message",
+          "default": "feat: add feature"
+        },
+        {
+          "id": "prTitle",
+          "description": "PR title",
+          "default": "$(git log -1 --pretty=%B)"
+        },
+        {
+          "id": "prBody",
+          "description": "PR body",
+          "default": "## Changes\n\n- \n\n## Testing\n\n- [ ] Tests pass\n- [ ] Quality gates pass"
+        }
+      ]
+    },
+    "git.status": {
+      "command": "git status",
+      "title": "Git Status",
+      "description": "Show git status"
+    },
+    "git.branch.create": {
+      "command": "git checkout -b ${input:branchName}",
+      "title": "Create and Switch Branch",
+      "description": "Create a new branch and switch to it",
+      "inputs": [
+        {
+          "id": "branchName",
+          "description": "Branch name",
+          "default": "feature/new-feature"
+        }
+      ]
+    },
+    "git.log": {
+      "command": "git log --oneline --graph --decorate -10",
+      "title": "Git Log",
+      "description": "Show recent git log"
+    }
+  }
+}
+
