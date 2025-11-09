@@ -2,7 +2,7 @@
 
 # Variables
 PYTHON := python3.12
-UV := uv
+UV := UV_LINK_MODE=copy uv
 DOCKER_COMPOSE := docker-compose
 APP_NAME := wwiii-apic
 IMAGE_NAME := $(APP_NAME):latest

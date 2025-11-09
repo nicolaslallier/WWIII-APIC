@@ -1,5 +1,6 @@
 """Database session management."""
-from typing import AsyncGenerator
+
+from collections.abc import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
@@ -46,4 +47,3 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
             raise
         finally:
             await session.close()
-
